@@ -67,7 +67,7 @@ fn main() {
     let typeface =
         Typeface::new_from_file(&format!("{}/examples/fonts/STIX2Math.otf", root_dir), 0).unwrap();
     text_paint.set_typeface(&typeface);
-    canvas.draw_text("Hello Skia!", 100., 100., &text_paint);
+    canvas.draw_text("Hello, Easy Skia!", 100., 100., &text_paint);
 
     fill.set_color(Color::from_argb(128, 0, 255, 0));
     canvas.draw_oval(
