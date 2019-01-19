@@ -1,13 +1,14 @@
+#[derive(Debug)]
 pub struct Color(pub(crate) u32);
 
 impl Color {
-    pub fn fromu32(c: u32)-> Color {
+    pub fn from_u32(c: u32) -> Color {
         Color { 0: c }
     }
 
     pub fn from_argb(a: u8, r: u8, g: u8, b: u8) -> Color {
         Color {
-            0: (a as u32) << 24 | (r as u32) << 16 | (g as u32) << 8 | (b as u32),
+            0: ((a as u32) << 24 | (r as u32) << 16 | (g as u32) << 8 | (b as u32)),
         }
     }
 

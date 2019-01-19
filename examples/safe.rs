@@ -18,10 +18,10 @@ fn main() {
     let mut canvas = surface.get_canvas();
 
     let mut fill = Paint::new();
-    fill.set_color(Color::fromu32(0xffffff));
+    fill.set_color(Color::from_argb(255, 255, 255, 255));
     canvas.draw_paint(&fill);
 
-    fill.set_color(Color::fromu32(0xff00ffff));
+    fill.set_color(Color::from_u32(0xff00ffff));
     canvas.draw_rect(
         &Rect {
             left: 100.0,
@@ -33,11 +33,22 @@ fn main() {
     );
 
     let mut stroke = Paint::new();
-    stroke.set_color(Color::fromu32(0xffff0000));
+    stroke.set_color(Color::from_u32(0xff4285F4));
     stroke.set_antialias(true);
-    stroke.set_stroke_width(5.);
+    stroke.set_stroke_width(2.);
 
     let mut path = Path::new();
+    let r: f32 = 115.2;
+    let c = 128.0f32;
+    path.move_to(c + r, c);
+    for i in 0..8 {
+        let a = 2.6927937 * i as f32;
+        path.line_to(c + r * a.cos(), c + r * a.sin());
+    }
+    canvas.draw_path(&path, &stroke);
+
+    let mut path = Path::new();
+    stroke.set_color(Color::from_u32(0xccff0000));
     path.move_to(50., 50.);
     path.line_to(590., 50.);
     path.cubic_to(-490., 50., 1130., 430., 50., 430.);
@@ -46,27 +57,17 @@ fn main() {
 
     let mut text_paint = Paint::new();
     text_paint.set_antialias(true);
-    text_paint.set_color(Color::fromu32(0xff00000));
-    text_paint.set_dither(true);
+    text_paint.set_color(Color::from_u32(0xff000000));
+    println!("painter color is {:?}", text_paint.get_color());
+
+    // text_paint.set_dither(true);
     text_paint.set_text_size(64.);
 
     let root_dir = env!("CARGO_MANIFEST_DIR");
     let typeface =
         Typeface::new_from_file(&format!("{}/examples/fonts/STIX2Math.otf", root_dir), 0).unwrap();
     text_paint.set_typeface(&typeface);
-
-    let metrics = text_paint.get_font_metrics(0.);
-    println!("{:?}", metrics);
-    println!("{:?}", text_paint.measure_text("Hello world!"));
-    println!("{:?}", text_paint.get_text_encoding());
-
-    text_paint.set_text_encoding(easy_skia::TextEncoding::GLYPH_ID_SK_TEXT_ENCODING);
-    println!("{:?}", text_paint.measure_blob(&[19, 19]));
-
-    text_paint.set_text_encoding(TextEncoding::UTF8_SK_TEXT_ENCODING);
-    println!("{:?}", text_paint.measure_text("QQ"));
-
-    canvas.draw_text("Hello", 100., 100., &text_paint);
+    canvas.draw_text("Hello Skia!", 100., 100., &text_paint);
 
     fill.set_color(Color::from_argb(128, 0, 255, 0));
     canvas.draw_oval(
