@@ -4,7 +4,7 @@ use {Color, Matrix, Point};
 pub use bindings::sk_shader_tilemode_t as TileMode;
 
 pub struct Shader {
-    pub(crate) native_pointer: *mut sk_shader_t,
+    pub(crate) raw_pointer: *mut sk_shader_t,
 }
 
 impl Shader {
@@ -17,7 +17,7 @@ impl Shader {
     ) -> Shader {
         let colors: Vec<u32> = colors.iter().map(|c| c.0).collect();
 
-        let native_pointer = unsafe {
+        let raw_pointer = unsafe {
             sk_shader_new_linear_gradient(
                 points.as_ptr(),
                 colors[..].as_ptr(),
@@ -28,16 +28,16 @@ impl Shader {
             )
         };
 
-        if native_pointer.is_null() {
+        if raw_pointer.is_null() {
             panic!("Cannot create gradient");
         }
 
-        Shader { native_pointer }
+        Shader { raw_pointer }
     }
 }
 
 impl Drop for Shader {
     fn drop(&mut self) {
-        unsafe { sk_shader_unref(self.native_pointer) };
+        unsafe { sk_shader_unref(self.raw_pointer) };
     }
 }

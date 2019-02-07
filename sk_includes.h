@@ -1,3 +1,4 @@
+#include "skia/include/c/gr_context.h"
 #include "skia/include/c/sk_canvas.h"
 #include "skia/include/c/sk_colorspace.h"
 #include "skia/include/c/sk_data.h"

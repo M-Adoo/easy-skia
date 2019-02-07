@@ -11,7 +11,7 @@ pub use bindings::sk_stroke_join_t as StrokeJoin;
 use TextEncoding;
 
 pub struct Paint {
-    pub(crate) native_pointer: *mut sk_paint_t,
+    pub(crate) raw_pointer: *mut sk_paint_t,
 }
 
 impl Paint {
@@ -23,78 +23,78 @@ impl Paint {
         }
 
         Paint {
-            native_pointer: pointer,
+            raw_pointer: pointer,
         }
     }
 
     pub fn is_antialias(&self) -> bool {
-        unsafe { sk_paint_is_antialias(self.native_pointer) }
+        unsafe { sk_paint_is_antialias(self.raw_pointer) }
     }
 
     pub fn set_antialias(&mut self, antialias: bool) {
-        unsafe { sk_paint_set_antialias(self.native_pointer, antialias) }
+        unsafe { sk_paint_set_antialias(self.raw_pointer, antialias) }
     }
 
     pub fn set_dither(&mut self, dither: bool) {
-        unsafe { sk_paint_set_dither(self.native_pointer, dither) };
+        unsafe { sk_paint_set_dither(self.raw_pointer, dither) };
     }
 
     pub fn is_dither(&self) -> bool {
-        unsafe { sk_paint_is_dither(self.native_pointer) }
+        unsafe { sk_paint_is_dither(self.raw_pointer) }
     }
 
     pub fn get_color(&self) -> Color {
         Color {
-            0: unsafe { sk_paint_get_color(self.native_pointer) },
+            0: unsafe { sk_paint_get_color(self.raw_pointer) },
         }
     }
 
     pub fn set_color(&mut self, color: Color) {
-        unsafe { sk_paint_set_color(self.native_pointer, color.0) }
+        unsafe { sk_paint_set_color(self.raw_pointer, color.0) }
     }
 
     pub fn get_stroke_width(&self) -> f32 {
-        unsafe { sk_paint_get_stroke_width(self.native_pointer) }
+        unsafe { sk_paint_get_stroke_width(self.raw_pointer) }
     }
 
     pub fn set_stroke_width(&mut self, width: f32) {
-        unsafe { sk_paint_set_stroke_width(self.native_pointer, width) }
+        unsafe { sk_paint_set_stroke_width(self.raw_pointer, width) }
     }
 
     pub fn get_stroke_miter(&self) -> f32 {
-        unsafe { sk_paint_get_stroke_miter(self.native_pointer) }
+        unsafe { sk_paint_get_stroke_miter(self.raw_pointer) }
     }
 
     pub fn set_stroke_miter(&mut self, miter: f32) {
-        unsafe { sk_paint_set_stroke_miter(self.native_pointer, miter) };
+        unsafe { sk_paint_set_stroke_miter(self.raw_pointer, miter) };
     }
 
     pub fn get_stroke_cap(&self) -> StrokeCap {
-        unsafe { sk_paint_get_stroke_cap(self.native_pointer) }
+        unsafe { sk_paint_get_stroke_cap(self.raw_pointer) }
     }
 
     pub fn set_stroke_cap(&mut self, cap: StrokeCap) {
-        unsafe { sk_paint_set_stroke_cap(self.native_pointer, cap) };
+        unsafe { sk_paint_set_stroke_cap(self.raw_pointer, cap) };
     }
 
     pub fn get_stroke_join(&self) -> StrokeJoin {
-        unsafe { sk_paint_get_stroke_join(self.native_pointer) }
+        unsafe { sk_paint_get_stroke_join(self.raw_pointer) }
     }
 
     pub fn set_stroke_join(&mut self, join: StrokeJoin) {
-        unsafe { sk_paint_set_stroke_join(self.native_pointer, join) }
+        unsafe { sk_paint_set_stroke_join(self.raw_pointer, join) }
     }
 
     pub fn set_text_size(&mut self, size: f32) {
-        unsafe { sk_paint_set_textsize(self.native_pointer, size) };
+        unsafe { sk_paint_set_textsize(self.raw_pointer, size) };
     }
 
     pub fn get_text_size(&self) -> f32 {
-        unsafe { sk_paint_get_textsize(self.native_pointer) }
+        unsafe { sk_paint_get_textsize(self.raw_pointer) }
     }
 
     pub fn set_typeface(&mut self, typeface: &Typeface) {
-        unsafe { sk_paint_set_typeface(self.native_pointer, typeface.native_pointer) };
+        unsafe { sk_paint_set_typeface(self.raw_pointer, typeface.raw_pointer) };
     }
 
     pub fn get_font_metrics(&self, scale: f32) -> sk_fontmetrics_t {
@@ -117,7 +117,7 @@ impl Paint {
             fStrikeoutPosition: 0.0,
         };
 
-        unsafe { sk_paint_get_fontmetrics(self.native_pointer, &mut font_metrics, scale) };
+        unsafe { sk_paint_get_fontmetrics(self.raw_pointer, &mut font_metrics, scale) };
 
         font_metrics
     }
@@ -133,7 +133,7 @@ impl Paint {
 
         let width = unsafe {
             sk_paint_measure_text(
-                self.native_pointer,
+                self.raw_pointer,
                 ctext.as_ptr() as *const c_void,
                 text.len(),
                 &mut rect,
@@ -153,7 +153,7 @@ impl Paint {
 
         let width = unsafe {
             sk_paint_measure_text(
-                self.native_pointer,
+                self.raw_pointer,
                 blob.as_ptr() as *const c_void,
                 2 * blob.len(),
                 &mut rect,
@@ -164,34 +164,34 @@ impl Paint {
     }
 
     pub fn set_text_encoding(&mut self, encoding: TextEncoding) {
-        unsafe { sk_paint_set_text_encoding(self.native_pointer, encoding) };
+        unsafe { sk_paint_set_text_encoding(self.raw_pointer, encoding) };
     }
 
     pub fn get_text_encoding(&self) -> TextEncoding {
-        unsafe { sk_paint_get_text_encoding(self.native_pointer) }
+        unsafe { sk_paint_get_text_encoding(self.raw_pointer) }
     }
 
     pub fn set_shader(&mut self, shader: &Shader) {
-        unsafe { sk_paint_set_shader(self.native_pointer, shader.native_pointer) };
+        unsafe { sk_paint_set_shader(self.raw_pointer, shader.raw_pointer) };
     }
 
     pub fn set_maskfilter(&mut self, filter: &MaskFilter) {
-        unsafe { sk_paint_set_maskfilter(self.native_pointer, filter.native_pointer) };
+        unsafe { sk_paint_set_maskfilter(self.raw_pointer, filter.raw_pointer) };
     }
 
     pub fn sk_paint_get_blendmode(&self) -> sk_blendmode_t {
-        unsafe { sk_paint_get_blendmode(self.native_pointer) }
+        unsafe { sk_paint_get_blendmode(self.raw_pointer) }
     }
 
     pub fn sk_paint_set_blendmode(&mut self, mode: sk_blendmode_t) {
         unsafe {
-            sk_paint_set_blendmode(self.native_pointer, mode);
+            sk_paint_set_blendmode(self.raw_pointer, mode);
         }
     }
 }
 
 impl Drop for Paint {
     fn drop(&mut self) {
-        unsafe { sk_paint_delete(self.native_pointer) };
+        unsafe { sk_paint_delete(self.raw_pointer) };
     }
 }

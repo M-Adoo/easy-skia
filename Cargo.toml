@@ -3,3 +3,7 @@ name = "easy-skia"
 version = "0.1.0"
 authors = ["Adoo <Adoo@outlook.com>"]
 build = "build.rs"
+
+[dependencies]
+glutin = "*"
+gl = "*"

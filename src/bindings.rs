@@ -3374,6 +3374,204 @@ fn bindgen_test_layout_sk_textblob_builder_runbuffer_t() {
     );
 }
 extern "C" {
+    #[link_name = "\u{1}_gr_context_make_gl"]
+    pub fn gr_context_make_gl(glInterface: *const gr_glinterface_t) -> *mut gr_context_t;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_context_unref"]
+    pub fn gr_context_unref(context: *mut gr_context_t);
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_context_abandon_context"]
+    pub fn gr_context_abandon_context(context: *mut gr_context_t);
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_context_release_resources_and_abandon_context"]
+    pub fn gr_context_release_resources_and_abandon_context(context: *mut gr_context_t);
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_context_get_resource_cache_limits"]
+    pub fn gr_context_get_resource_cache_limits(
+        context: *mut gr_context_t,
+        maxResources: *mut ::std::os::raw::c_int,
+        maxResourceBytes: *mut usize,
+    );
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_context_set_resource_cache_limits"]
+    pub fn gr_context_set_resource_cache_limits(
+        context: *mut gr_context_t,
+        maxResources: ::std::os::raw::c_int,
+        maxResourceBytes: usize,
+    );
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_context_get_resource_cache_usage"]
+    pub fn gr_context_get_resource_cache_usage(
+        context: *mut gr_context_t,
+        maxResources: *mut ::std::os::raw::c_int,
+        maxResourceBytes: *mut usize,
+    );
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_context_get_max_surface_sample_count_for_color_type"]
+    pub fn gr_context_get_max_surface_sample_count_for_color_type(
+        context: *mut gr_context_t,
+        colorType: sk_colortype_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_context_flush"]
+    pub fn gr_context_flush(context: *mut gr_context_t);
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_context_reset_context"]
+    pub fn gr_context_reset_context(context: *mut gr_context_t, state: u32);
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_context_get_backend"]
+    pub fn gr_context_get_backend(context: *mut gr_context_t) -> gr_backend_t;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_glinterface_create_native_interface"]
+    pub fn gr_glinterface_create_native_interface() -> *const gr_glinterface_t;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_glinterface_assemble_interface"]
+    pub fn gr_glinterface_assemble_interface(
+        ctx: *mut ::std::os::raw::c_void,
+        get: gr_gl_get_proc,
+    ) -> *const gr_glinterface_t;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_glinterface_assemble_gl_interface"]
+    pub fn gr_glinterface_assemble_gl_interface(
+        ctx: *mut ::std::os::raw::c_void,
+        get: gr_gl_get_proc,
+    ) -> *const gr_glinterface_t;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_glinterface_assemble_gles_interface"]
+    pub fn gr_glinterface_assemble_gles_interface(
+        ctx: *mut ::std::os::raw::c_void,
+        get: gr_gl_get_proc,
+    ) -> *const gr_glinterface_t;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_glinterface_unref"]
+    pub fn gr_glinterface_unref(glInterface: *const gr_glinterface_t);
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_glinterface_validate"]
+    pub fn gr_glinterface_validate(glInterface: *const gr_glinterface_t) -> bool;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_glinterface_has_extension"]
+    pub fn gr_glinterface_has_extension(
+        glInterface: *const gr_glinterface_t,
+        extension: *const ::std::os::raw::c_char,
+    ) -> bool;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_backendtexture_new_gl"]
+    pub fn gr_backendtexture_new_gl(
+        width: ::std::os::raw::c_int,
+        height: ::std::os::raw::c_int,
+        mipmapped: bool,
+        glInfo: *const gr_gl_textureinfo_t,
+    ) -> *mut gr_backendtexture_t;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_backendtexture_delete"]
+    pub fn gr_backendtexture_delete(texture: *mut gr_backendtexture_t);
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_backendtexture_is_valid"]
+    pub fn gr_backendtexture_is_valid(texture: *const gr_backendtexture_t) -> bool;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_backendtexture_get_width"]
+    pub fn gr_backendtexture_get_width(
+        texture: *const gr_backendtexture_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_backendtexture_get_height"]
+    pub fn gr_backendtexture_get_height(
+        texture: *const gr_backendtexture_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_backendtexture_has_mipmaps"]
+    pub fn gr_backendtexture_has_mipmaps(texture: *const gr_backendtexture_t) -> bool;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_backendtexture_get_backend"]
+    pub fn gr_backendtexture_get_backend(texture: *const gr_backendtexture_t) -> gr_backend_t;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_backendtexture_get_gl_textureinfo"]
+    pub fn gr_backendtexture_get_gl_textureinfo(
+        texture: *const gr_backendtexture_t,
+        glInfo: *mut gr_gl_textureinfo_t,
+    ) -> bool;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_backendrendertarget_new_gl"]
+    pub fn gr_backendrendertarget_new_gl(
+        width: ::std::os::raw::c_int,
+        height: ::std::os::raw::c_int,
+        samples: ::std::os::raw::c_int,
+        stencils: ::std::os::raw::c_int,
+        glInfo: *const gr_gl_framebufferinfo_t,
+    ) -> *mut gr_backendrendertarget_t;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_backendrendertarget_delete"]
+    pub fn gr_backendrendertarget_delete(rendertarget: *mut gr_backendrendertarget_t);
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_backendrendertarget_is_valid"]
+    pub fn gr_backendrendertarget_is_valid(rendertarget: *const gr_backendrendertarget_t) -> bool;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_backendrendertarget_get_width"]
+    pub fn gr_backendrendertarget_get_width(
+        rendertarget: *const gr_backendrendertarget_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_backendrendertarget_get_height"]
+    pub fn gr_backendrendertarget_get_height(
+        rendertarget: *const gr_backendrendertarget_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_backendrendertarget_get_samples"]
+    pub fn gr_backendrendertarget_get_samples(
+        rendertarget: *const gr_backendrendertarget_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_backendrendertarget_get_stencils"]
+    pub fn gr_backendrendertarget_get_stencils(
+        rendertarget: *const gr_backendrendertarget_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_backendrendertarget_get_backend"]
+    pub fn gr_backendrendertarget_get_backend(
+        rendertarget: *const gr_backendrendertarget_t,
+    ) -> gr_backend_t;
+}
+extern "C" {
+    #[link_name = "\u{1}_gr_backendrendertarget_get_gl_framebufferinfo"]
+    pub fn gr_backendrendertarget_get_gl_framebufferinfo(
+        rendertarget: *const gr_backendrendertarget_t,
+        glInfo: *mut gr_gl_framebufferinfo_t,
+    ) -> bool;
+}
+extern "C" {
     #[link_name = "\u{1}_sk_canvas_destroy"]
     pub fn sk_canvas_destroy(arg1: *mut sk_canvas_t);
 }
@@ -5733,11 +5931,13 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}_sk_surfaceprops_get_flags"]
-    pub fn sk_surfaceprops_get_flags(props: *mut sk_surfaceprops_t) -> u32;
+    pub fn sk_surfaceprops_get_flags(props: *const sk_surfaceprops_t) -> u32;
 }
 extern "C" {
     #[link_name = "\u{1}_sk_surfaceprops_get_pixel_geometry"]
-    pub fn sk_surfaceprops_get_pixel_geometry(props: *mut sk_surfaceprops_t) -> sk_pixelgeometry_t;
+    pub fn sk_surfaceprops_get_pixel_geometry(
+        props: *const sk_surfaceprops_t,
+    ) -> sk_pixelgeometry_t;
 }
 extern "C" {
     #[link_name = "\u{1}_sk_typeface_create_default"]
