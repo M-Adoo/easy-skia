@@ -3,7 +3,6 @@
 #![allow(non_snake_case)]
 
 pub mod bindings;
-
 mod context;
 pub use self::context::*;
 mod paint;

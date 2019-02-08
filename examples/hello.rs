@@ -1,9 +1,9 @@
 extern crate easy_skia;
 
- use easy_skia::*;
 extern crate gl;
 extern crate glutin;
 
+use easy_skia::*;
 use glutin::dpi::*;
 use glutin::GlContext;
 
@@ -51,7 +51,7 @@ fn main() {
     );
     let mut canvas = surface.get_canvas();
     let mut running = true;
-  
+
     while running {
         events_loop.poll_events(|event| match event {
             glutin::Event::WindowEvent { event, .. } => match event {
@@ -71,7 +71,7 @@ fn main() {
 }
 
 fn draw(canvas: &mut Canvas) {
-  let mut fill = Paint::new();
+    let mut fill = Paint::new();
     fill.set_color(Color::from_argb(255, 255, 255, 255));
     canvas.draw_paint(&fill);
 

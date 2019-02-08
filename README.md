@@ -1,5 +1,5 @@
 # Easy Skia (WIP)
-
+[![Build Status](https://travis-ci.com/M-Adoo/easy-skia.svg?branch=master)](https://travis-ci.com/M-Adoo/easy-skia)
 Rust idiomatic safe bindings to Google's Skia. The Most of C API is from [mono/skia](https://github.com/mono/skia).
 
 ### DEMO

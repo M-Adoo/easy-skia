@@ -3,8 +3,8 @@ use std::os::raw::c_void;
 use bindings::*;
 use Data;
 
-pub use bindings::sk_irect_t as IRect;
 pub use bindings::sk_imageinfo_t as ImageInfo;
+pub use bindings::sk_irect_t as IRect;
 
 pub struct Image {
     pub(crate) raw_pointer: *mut sk_image_t,
