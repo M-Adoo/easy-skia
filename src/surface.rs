@@ -116,15 +116,15 @@ impl Surface {
         };
     }
 
-    pub fn get_props(&mut self) -> SurfaceProps {
-        unsafe {
-            let raw_pointer = sk_surface_get_props(self.raw_pointer);
-            SurfaceProps::new(
-                sk_surfaceprops_get_flags(raw_pointer),
-                sk_surfaceprops_get_pixel_geometry(raw_pointer),
-            )
-        }
-    }
+    // pub fn get_props(&mut self) -> SurfaceProps {
+    //     unsafe {
+    //         let raw_pointer = sk_surface_get_props(self.raw_pointer);
+    //         SurfaceProps::new(
+    //             sk_surfaceprops_get_flags(raw_pointer),
+    //             sk_surfaceprops_get_pixel_geometry(raw_pointer),
+    //         )
+    //     }
+    // }
 }
 
 impl Drop for Surface {

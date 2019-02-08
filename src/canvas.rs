@@ -24,7 +24,7 @@ impl<'a> Canvas<'a> {
     }
 
     pub fn flush(&mut self) {
-        unsafe { sk_canvas_flush(self.raw_pointer)};
+        unsafe { sk_canvas_flush(self.raw_pointer) };
     }
 
     pub fn translate(&mut self, dx: f32, dy: f32) {
@@ -68,13 +68,7 @@ impl<'a> Canvas<'a> {
     }
 
     pub fn draw_path(&mut self, path: &Path, paint: &Paint) {
-        unsafe {
-            sk_canvas_draw_path(
-                self.raw_pointer,
-                path.raw_pointer,
-                paint.raw_pointer,
-            )
-        };
+        unsafe { sk_canvas_draw_path(self.raw_pointer, path.raw_pointer, paint.raw_pointer) };
     }
 
     pub fn draw_text(&mut self, text: &str, x: f32, y: f32, paint: &Paint) {
@@ -97,13 +91,7 @@ impl<'a> Canvas<'a> {
 
     pub fn draw_image(&mut self, image: &Image, x: f32, y: f32, paint: &Paint) {
         unsafe {
-            sk_canvas_draw_image(
-                self.raw_pointer,
-                image.raw_pointer,
-                x,
-                y,
-                paint.raw_pointer,
-            )
+            sk_canvas_draw_image(self.raw_pointer, image.raw_pointer, x, y, paint.raw_pointer)
         };
     }
 
