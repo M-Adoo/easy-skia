@@ -74,17 +74,6 @@ fn main() {
 
     #[cfg(target_os = "linux")]
     {
-        assert!(
-            Command::new("sh")
-                .current_dir("skia")
-                .args(&["tools/install_dependencies.sh"])
-                .stdout(Stdio::inherit())
-                .stderr(Stdio::inherit())
-                .status()
-                .unwrap()
-                .success(),
-            "Cannot install skia depenedencies"
-        );
         println!("cargo:rustc-link-lib=stdc++");
         println!("cargo:rustc-link-lib=fontconfig");
     }

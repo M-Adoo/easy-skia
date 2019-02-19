@@ -1,5 +1,10 @@
 # Easy Skia (WIP)
-[![Build Status](https://travis-ci.com/M-Adoo/easy-skia.svg?branch=master)](https://travis-ci.com/M-Adoo/easy-skia)
+| Platform      | Status | Platform      | Status |
+| ----------- | ----------- | ----------- | ----------- |
+| OSX      | [![Build Status](https://travis-ci.com/M-Adoo/easy-skia.svg?branch=master)](https://travis-ci.com/M-Adoo/easy-skia)       | IOS | Not support now
+| Linux    | [![Build Status](https://api.cirrus-ci.com/github/M-Adoo/easy-skia.svg)](https://cirrus-ci.com/github/M-Adoo/easy-skia)   | Andorid |Not support now
+| Windows  | Not support now | Web | Not support now
+
 Rust idiomatic safe bindings to Google's Skia. The Most of C API is from [mono/skia](https://github.com/mono/skia).
 
 ### DEMO
@@ -20,13 +25,6 @@ clone this repo and run `cargo run  --example hello` get a demo like below:
   - [ ] svg
   - [ ] xps
 - [ ] ci
-- [ ] platform support
-  - [x] osx
-  - [ ] linux
-  - [ ] windows
-  - [ ] Andorid
-  - [ ] IOS
-  - [ ] Web Assembly (WASM)
 - [ ] Animation Player
 
 ### I need help (Contibuting)

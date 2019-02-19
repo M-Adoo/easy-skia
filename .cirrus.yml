@@ -1,0 +1,35 @@
+linux_test_task:
+  container:
+      dockerfile: ci/linux.Dockerfile
+  cargo_cache:
+    folder: $CARGO_HOME/registry
+    fingerprint_script: cat Cargo.lock
+  build_script: cargo build
+  test_script: cargo test
+  before_cache_script: rm -rf $CARGO_HOME/registry/index
+
+osx_test_task:
+  osx_instance:
+    image: mojave-xcode-10.1
+  cargo_cache:
+    folder: $CARGO_HOME/registry
+    fingerprint_script: cat Cargo.lock
+  install_script:
+    - brew install ninja
+    - curl https://sh.rustup.rs -sSf | sh -s -- -y
+    - source $HOME/.cargo/env
+    - rustc --version
+    - cargo --version
+    - echo $PWD
+  build_script:
+    - echo $PWD
+    - source $HOME/.cargo/env
+    - cargo build
+  test_script: 
+    - echo $PWD
+    - cargo test
+
+# todo windows 
+# todo andorid
+# todo ios
+# todo web borwser
