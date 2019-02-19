@@ -1,16 +1,4 @@
 language: rust
-before_install:
-  - bash ./scripts/ninja_install.sh
-addons:
-  apt:
-    packages:
-      - python
-      - unzip
-  bomebrew:
-    packages:
-      - python
-      - llvm
-      - unzip
 rust:
   - stable
   - nightly
@@ -19,7 +7,7 @@ matrix:
     - rust: nightly
 os:
   - osx
-  - linux
 script:
-  - cargo build --verbose --all
+  - brew install ninja
+  - travis_wait cargo build --verbose --all
   - cargo test --verbose --all
