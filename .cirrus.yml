@@ -1,6 +1,8 @@
 linux_test_task:
   container:
       dockerfile: ci/linux.Dockerfile
+      cpu: 4
+      memory: 10G
   cargo_cache:
     folder: $CARGO_HOME/registry
     fingerprint_script: cat Cargo.lock

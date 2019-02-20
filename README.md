@@ -1,7 +1,7 @@
 # Easy Skia (WIP)
 | Platform      | Status | Platform      | Status |
 | ----------- | ----------- | ----------- | ----------- |
-| OSX      | [![Build Status](https://travis-ci.com/M-Adoo/easy-skia.svg?branch=master)](https://travis-ci.com/M-Adoo/easy-skia)       | IOS | Not support now
+| OSX      | [![Build Status](https://api.cirrus-ci.com/github/M-Adoo/easy-skia.svg)](https://cirrus-ci.com/github/M-Adoo/easy-skia)   | IOS | Not support now
 | Linux    | [![Build Status](https://api.cirrus-ci.com/github/M-Adoo/easy-skia.svg)](https://cirrus-ci.com/github/M-Adoo/easy-skia)   | Andorid |Not support now
 | Windows  | Not support now | Web | Not support now
 
