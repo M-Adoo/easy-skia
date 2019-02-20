@@ -20,13 +20,11 @@ osx_test_task:
     - source $HOME/.cargo/env
     - rustc --version
     - cargo --version
-    - echo $PWD
   build_script:
-    - echo $PWD
     - source $HOME/.cargo/env
     - cargo build
   test_script: 
-    - echo $PWD
+    - source $HOME/.cargo/env
     - cargo test
 
 # todo windows 
