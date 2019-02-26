@@ -5,9 +5,12 @@ use bindings::*;
 use color::Color;
 use {MaskFilter, Rect, Shader, Typeface};
 
+pub use bindings::sk_blendmode_t as BlendMode;
+pub use bindings::sk_fontmetrics_t as FontMetrics;
 pub use bindings::sk_fontmetrics_t;
 pub use bindings::sk_stroke_cap_t as StrokeCap;
 pub use bindings::sk_stroke_join_t as StrokeJoin;
+
 use TextEncoding;
 
 pub struct Paint {
@@ -31,12 +34,14 @@ impl Paint {
         unsafe { sk_paint_is_antialias(self.raw_pointer) }
     }
 
-    pub fn set_antialias(&mut self, antialias: bool) {
-        unsafe { sk_paint_set_antialias(self.raw_pointer, antialias) }
+    pub fn set_antialias(&mut self, antialias: bool) -> &mut Self {
+        unsafe { sk_paint_set_antialias(self.raw_pointer, antialias) };
+        self
     }
 
-    pub fn set_dither(&mut self, dither: bool) {
+    pub fn set_dither(&mut self, dither: bool) -> &mut Self {
         unsafe { sk_paint_set_dither(self.raw_pointer, dither) };
+        self
     }
 
     pub fn is_dither(&self) -> bool {
@@ -49,56 +54,63 @@ impl Paint {
         }
     }
 
-    pub fn set_color(&mut self, color: Color) {
-        unsafe { sk_paint_set_color(self.raw_pointer, color.0) }
+    pub fn set_color(&mut self, color: Color) -> &mut Self {
+        unsafe { sk_paint_set_color(self.raw_pointer, color.0) };
+        self
     }
 
     pub fn get_stroke_width(&self) -> f32 {
         unsafe { sk_paint_get_stroke_width(self.raw_pointer) }
     }
 
-    pub fn set_stroke_width(&mut self, width: f32) {
-        unsafe { sk_paint_set_stroke_width(self.raw_pointer, width) }
+    pub fn set_stroke_width(&mut self, width: f32) -> &mut Self {
+        unsafe { sk_paint_set_stroke_width(self.raw_pointer, width) };
+        self
     }
 
     pub fn get_stroke_miter(&self) -> f32 {
         unsafe { sk_paint_get_stroke_miter(self.raw_pointer) }
     }
 
-    pub fn set_stroke_miter(&mut self, miter: f32) {
+    pub fn set_stroke_miter(&mut self, miter: f32) -> &mut Self {
         unsafe { sk_paint_set_stroke_miter(self.raw_pointer, miter) };
+        self
     }
 
     pub fn get_stroke_cap(&self) -> StrokeCap {
         unsafe { sk_paint_get_stroke_cap(self.raw_pointer) }
     }
 
-    pub fn set_stroke_cap(&mut self, cap: StrokeCap) {
+    pub fn set_stroke_cap(&mut self, cap: StrokeCap) -> &mut Self {
         unsafe { sk_paint_set_stroke_cap(self.raw_pointer, cap) };
+        self
     }
 
     pub fn get_stroke_join(&self) -> StrokeJoin {
         unsafe { sk_paint_get_stroke_join(self.raw_pointer) }
     }
 
-    pub fn set_stroke_join(&mut self, join: StrokeJoin) {
-        unsafe { sk_paint_set_stroke_join(self.raw_pointer, join) }
+    pub fn set_stroke_join(&mut self, join: StrokeJoin) -> &mut Self {
+        unsafe { sk_paint_set_stroke_join(self.raw_pointer, join) };
+        self
     }
 
-    pub fn set_text_size(&mut self, size: f32) {
+    pub fn set_text_size(&mut self, size: f32) -> &mut Self {
         unsafe { sk_paint_set_textsize(self.raw_pointer, size) };
+        self
     }
 
     pub fn get_text_size(&self) -> f32 {
         unsafe { sk_paint_get_textsize(self.raw_pointer) }
     }
 
-    pub fn set_typeface(&mut self, typeface: &Typeface) {
+    pub fn set_typeface(&mut self, typeface: &Typeface) -> &mut Self {
         unsafe { sk_paint_set_typeface(self.raw_pointer, typeface.raw_pointer) };
+        self
     }
 
-    pub fn get_font_metrics(&self, scale: f32) -> sk_fontmetrics_t {
-        let mut font_metrics = sk_fontmetrics_t {
+    pub fn get_font_metrics(&self, scale: f32) -> FontMetrics {
+        let mut font_metrics = FontMetrics {
             fFlags: 0,
             fTop: 0.0,
             fAscent: 0.0,
@@ -163,30 +175,34 @@ impl Paint {
         (width, rect)
     }
 
-    pub fn set_text_encoding(&mut self, encoding: TextEncoding) {
+    pub fn set_text_encoding(&mut self, encoding: TextEncoding) -> &mut Self {
         unsafe { sk_paint_set_text_encoding(self.raw_pointer, encoding) };
+        self
     }
 
     pub fn get_text_encoding(&self) -> TextEncoding {
         unsafe { sk_paint_get_text_encoding(self.raw_pointer) }
     }
 
-    pub fn set_shader(&mut self, shader: &Shader) {
+    pub fn set_shader(&mut self, shader: &Shader) -> &mut Self {
         unsafe { sk_paint_set_shader(self.raw_pointer, shader.raw_pointer) };
+        self
     }
 
-    pub fn set_maskfilter(&mut self, filter: &MaskFilter) {
+    pub fn set_maskfilter(&mut self, filter: &MaskFilter) -> &mut Self {
         unsafe { sk_paint_set_maskfilter(self.raw_pointer, filter.raw_pointer) };
+        self
     }
 
-    pub fn sk_paint_get_blendmode(&self) -> sk_blendmode_t {
+    pub fn sk_paint_get_blendmode(&self) -> BlendMode {
         unsafe { sk_paint_get_blendmode(self.raw_pointer) }
     }
 
-    pub fn sk_paint_set_blendmode(&mut self, mode: sk_blendmode_t) {
+    pub fn sk_paint_set_blendmode(&mut self, mode: BlendMode) -> &mut Self {
         unsafe {
             sk_paint_set_blendmode(self.raw_pointer, mode);
-        }
+        };
+        self
     }
 }
 

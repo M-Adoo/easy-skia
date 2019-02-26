@@ -1,4 +1,3 @@
-use std::marker::PhantomData;
 use std::ptr;
 
 pub use bindings::gr_surfaceorigin_t as SurfaceOrigin;
@@ -92,11 +91,10 @@ impl Surface {
             },
         }
     }
-    pub fn get_canvas<'a>(&'a self) -> Canvas<'a> {
+    pub fn get_canvas(&self) -> Canvas {
         let canvas_ptr = unsafe { sk_surface_get_canvas(self.raw_pointer) };
         Canvas {
             raw_pointer: canvas_ptr,
-            phantom: PhantomData,
         }
     }
 

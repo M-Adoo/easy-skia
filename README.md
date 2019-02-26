@@ -1,8 +1,8 @@
 # Easy Skia (WIP)
 | Platform      | Status | Platform      | Status |
 | ----------- | ----------- | ----------- | ----------- |
-| OSX      | [![Build Status](https://api.cirrus-ci.com/github/M-Adoo/easy-skia.svg)](https://cirrus-ci.com/github/M-Adoo/easy-skia)   | IOS | Not support now
-| Linux    | [![Build Status](https://api.cirrus-ci.com/github/M-Adoo/easy-skia.svg)](https://cirrus-ci.com/github/M-Adoo/easy-skia)   | Andorid |Not support now
+| OSX      | [![Build Status](https://api.cirrus-ci.com/github/M-Adoo/easy-skia.svg?task=osx_test)](https://cirrus-ci.com/github/M-Adoo/easy-skia)   | IOS | Not support now
+| Linux    | [![Build Status](https://api.cirrus-ci.com/github/M-Adoo/easy-skia.svg?task=linux_test)](https://cirrus-ci.com/github/M-Adoo/easy-skia)   | Andorid |Not support now
 | Windows  | Not support now | Web | Not support now
 
 Rust idiomatic safe bindings to Google's Skia. The Most of C API is from [mono/skia](https://github.com/mono/skia).

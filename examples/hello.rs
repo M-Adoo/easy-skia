@@ -87,9 +87,10 @@ fn draw(canvas: &mut Canvas) {
     );
 
     let mut stroke = Paint::new();
-    stroke.set_color(Color::from_u32(0xff4285F4));
-    stroke.set_antialias(true);
-    stroke.set_stroke_width(2.);
+    stroke
+        .set_color(Color::from_u32(0xff4285F4))
+        .set_antialias(true)
+        .set_stroke_width(2.);
 
     let mut path = Path::new();
     let r: f32 = 115.2;
@@ -103,18 +104,18 @@ fn draw(canvas: &mut Canvas) {
 
     let mut path = Path::new();
     stroke.set_color(Color::from_u32(0xccff0000));
-    path.move_to(50., 50.);
-    path.line_to(590., 50.);
-    path.cubic_to(-490., 50., 1130., 430., 50., 430.);
-    path.line_to(590., 430.);
+    path.move_to(50., 50.)
+        .line_to(590., 50.)
+        .cubic_to(-490., 50., 1130., 430., 50., 430.)
+        .line_to(590., 430.);
     canvas.draw_path(&path, &stroke);
 
     let mut text_paint = Paint::new();
-    text_paint.set_antialias(true);
-    text_paint.set_color(Color::from_u32(0xff000000));
-
-    text_paint.set_dither(true);
-    text_paint.set_text_size(64.);
+    text_paint
+        .set_antialias(true)
+        .set_color(Color::from_u32(0xff000000))
+        .set_dither(true)
+        .set_text_size(64.);
 
     let root_dir = env!("CARGO_MANIFEST_DIR");
     let typeface =
