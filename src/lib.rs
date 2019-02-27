@@ -29,6 +29,8 @@ mod surface;
 pub use self::surface::*;
 mod typeface;
 pub use self::typeface::*;
+mod colorfilter;
+pub use self::colorfilter::*;
 
 pub use bindings::gr_pixelconfig_t as GrPixelConfig;
 pub use bindings::sk_alphatype_t as AlphaType;
