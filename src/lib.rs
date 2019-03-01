@@ -35,6 +35,8 @@ mod imagefilter;
 pub use self::imagefilter::*;
 mod region;
 pub use self::region::*;
+mod drawable;
+pub use self::drawable::*;
 
 pub use bindings::gr_pixelconfig_t as GrPixelConfig;
 pub use bindings::sk_alphatype_t as AlphaType;
