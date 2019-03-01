@@ -31,14 +31,36 @@ mod typeface;
 pub use self::typeface::*;
 mod colorfilter;
 pub use self::colorfilter::*;
+mod imagefilter;
+pub use self::imagefilter::*;
+mod region;
+pub use self::region::*;
 
 pub use bindings::gr_pixelconfig_t as GrPixelConfig;
 pub use bindings::sk_alphatype_t as AlphaType;
 pub use bindings::sk_blendmode_t;
 pub use bindings::sk_clipop_t;
 pub use bindings::sk_imageinfo_t as ImageInfo;
-pub use bindings::sk_matrix_t as Matrix;
 pub use bindings::sk_point_t as Point;
-pub use bindings::sk_rect_t as Rect;
 pub use bindings::sk_shader_tilemode_t as ShaderTileMode;
 pub use bindings::sk_text_encoding_t as TextEncoding;
+
+#[macro_export]
+macro_rules! unwrap_raw_pointer {
+  ( $x:expr  ) => {{
+    if let Some(wrap) = $x {
+      wrap.raw_pointer
+    } else {
+      std::ptr::null_mut()
+    }
+  }};
+}
+
+#[macro_export]
+macro_rules! wrap_safe_type {
+  ($name: ident <= $body: expr ) => {
+    $name {
+      raw_pointer: unsafe { $body },
+    }
+  };
+}
