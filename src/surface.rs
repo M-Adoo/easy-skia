@@ -81,11 +81,7 @@ impl Surface {
                     target.raw_pointer,
                     origin,
                     color_type,
-                    if let Some(cs) = color_space {
-                        cs.raw_pointer
-                    } else {
-                        std::ptr::null_mut()
-                    },
+                    unwrap_raw_pointer!(cs),
                     props.raw_pointer,
                 )
             },
