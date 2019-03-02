@@ -37,6 +37,10 @@ mod region;
 pub use self::region::*;
 mod drawable;
 pub use self::drawable::*;
+mod text_blob;
+pub use self::text_blob::*;
+mod sk_string;
+pub use self::sk_string::*;
 
 pub use bindings::gr_pixelconfig_t as GrPixelConfig;
 pub use bindings::sk_alphatype_t as AlphaType;
@@ -49,7 +53,7 @@ pub use bindings::sk_text_encoding_t as TextEncoding;
 
 #[macro_export]
 macro_rules! unwrap_raw_pointer {
-  ( $x:expr  ) => {{
+  ( $x:expr ) => {{
     if let Some(wrap) = $x {
       wrap.raw_pointer
     } else {

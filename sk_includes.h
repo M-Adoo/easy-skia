@@ -13,6 +13,8 @@
 #include "skia/include/c/sk_picture.h"
 #include "skia/include/c/sk_region.h"
 #include "skia/include/c/sk_shader.h"
+#include "skia/include/c/sk_string.h"
 #include "skia/include/c/sk_surface.h"
+#include "skia/include/c/sk_textblob.h"
 #include "skia/include/c/sk_typeface.h"
 #include "skia/include/c/sk_types.h"

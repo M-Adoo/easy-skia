@@ -4,7 +4,7 @@ pub use bindings::gr_surfaceorigin_t as SurfaceOrigin;
 pub use bindings::sk_pixelgeometry_t as PixelGeometry;
 use bindings::*;
 use context::*;
-use {Canvas, ColorSpace, GrContext, Image, ImageInfo, Paint};
+use {unwrap_raw_pointer, Canvas, ColorSpace, GrContext, Image, ImageInfo, Paint};
 
 pub use bindings::sk_colortype_t as ColorType;
 
@@ -81,7 +81,7 @@ impl Surface {
                     target.raw_pointer,
                     origin,
                     color_type,
-                    unwrap_raw_pointer!(cs),
+                    unwrap_raw_pointer!(color_space),
                     props.raw_pointer,
                 )
             },
