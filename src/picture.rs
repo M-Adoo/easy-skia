@@ -2,7 +2,7 @@ use bindings::*;
 use {wrap_safe_type, Canvas, Drawable, Rect};
 
 pub struct PictureRecorder {
-  pub(crate) raw_pointer: *mut sk_picture_t,
+  pub(crate) raw_pointer: *mut sk_picture_recorder_t,
 }
 
 impl Drop for PictureRecorder {
@@ -60,10 +60,10 @@ impl Picture {
 
   fn get_cull_rect(&mut self) -> Rect {
     let mut rect = Rect {
-      left: 0,
-      right: 0,
-      top: 0,
-      bottom: 0,
+      left: 0.,
+      right: 0.,
+      top: 0.,
+      bottom: 0.,
     };
     unsafe { sk_picture_get_cull_rect(self.raw_pointer, &mut rect) };
     rect

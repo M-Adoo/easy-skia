@@ -68,7 +68,7 @@ impl Region {
       right: 0,
       top: 0,
     };
-    unsafe { sk_region_get_bounds(self.raw_pointer, &rect) }
+    unsafe { sk_region_get_bounds(self.raw_pointer, &mut rect) }
     rect
   }
 }

@@ -83,16 +83,25 @@ impl ImageFilter {
     wrap_safe_type! {
       ImageFilter <=
       sk_imagefilter_new_alpha_threshold(
-        region,
+        region.raw_pointer,
         inner_threshold,
         outer_threshold,
         unwrap_raw_pointer!(input))
     }
   }
 
-  fn new_blur(sigmaX: f32, sigmaY: f32, input: Option<&mut ImageFilter>) -> Self {
+  fn new_blur(
+    sigmaX: f32,
+    sigmaY: f32,
+    input: Option<&mut ImageFilter>,
+    crop: Option<&CropRect>,
+  ) -> Self {
     wrap_safe_type! {
-      ImageFilter <= sk_imagefilter_new_blur(sigmaX, sigmaY, unwrap_raw_pointer!(input))
+      ImageFilter <=
+      sk_imagefilter_new_blur(
+        sigmaX, sigmaY,
+        unwrap_raw_pointer!(input),
+        unwrap_raw_pointer!(crop))
     }
   }
 
@@ -119,7 +128,7 @@ impl ImageFilter {
   fn new_displacement_map_effect(
     x_channel_selector: DisplacementMapEffectChannelSelectorType,
     y_channel_selector: DisplacementMapEffectChannelSelectorType,
-    sacle: f32,
+    scale: f32,
     displacement: &mut ImageFilter,
     color: Option<&mut ColorFilter>,
     crop: Option<&CropRect>,
@@ -127,11 +136,12 @@ impl ImageFilter {
     wrap_safe_type! {
       ImageFilter <=
       sk_imagefilter_new_displacement_map_effect(
-          x_channel_selector,
-          y_channel_selector,
-          displacement.raw_pointer,
-          unwrap_raw_pointer!(color),
-          unwrap_raw_pointer!(crop))
+        x_channel_selector,
+        y_channel_selector,
+        scale,
+        displacement.raw_pointer,
+        unwrap_raw_pointer!(color),
+        unwrap_raw_pointer!(crop))
     }
   }
 
@@ -148,13 +158,14 @@ impl ImageFilter {
     wrap_safe_type! {
       ImageFilter <=
       sk_imagefilter_new_drop_shadow(
-          dx,
-          dy,
-          sigmaX,
-          sigmaY,
-          color.raw_pointer,
-          unwrap_raw_pointer!(input),
-          unwrap_raw_pointer!(crop))
+        dx,
+        dy,
+        sigmaX,
+        sigmaY,
+        color.0,
+        shadow_mode,
+        unwrap_raw_pointer!(input),
+        unwrap_raw_pointer!(crop))
     }
   }
 
@@ -169,12 +180,12 @@ impl ImageFilter {
     wrap_safe_type! {
       ImageFilter <=
       sk_imagefilter_new_distant_lit_diffuse(
-          direction,
-          light_color,
-          surface_scale,
-          kd,
-          unwrap_raw_pointer!(input),
-          unwrap_raw_pointer!(crop))
+        direction,
+        light_color.0,
+        surface_scale,
+        kd,
+        unwrap_raw_pointer!(input),
+        unwrap_raw_pointer!(crop))
     }
   }
 
@@ -189,12 +200,12 @@ impl ImageFilter {
     wrap_safe_type! {
       ImageFilter <=
       sk_imagefilter_new_point_lit_diffuse(
-          location,
-          light_color,
-          surface_scale,
-          kd,
-          unwrap_raw_pointer!(input),
-          unwrap_raw_pointer!(crop))
+        location,
+        light_color.0,
+        surface_scale,
+        kd,
+        unwrap_raw_pointer!(input),
+        unwrap_raw_pointer!(crop))
     }
   }
 
@@ -212,15 +223,15 @@ impl ImageFilter {
     wrap_safe_type! {
       ImageFilter <=
       sk_imagefilter_new_spot_lit_diffuse(
-          location,
-          target,
-          specular_exponent,
-          cutoff_angle,
-          light_color,
-          surface_scale,
-          kd,
-          unwrap_raw_pointer!(input),
-          unwrap_raw_pointer!(crop))
+        location,
+        target,
+        specular_exponent,
+        cutoff_angle,
+        light_color.0,
+        surface_scale,
+        kd,
+        unwrap_raw_pointer!(input),
+        unwrap_raw_pointer!(crop))
     }
   }
 
@@ -236,13 +247,13 @@ impl ImageFilter {
     wrap_safe_type! {
       ImageFilter <=
       sk_imagefilter_new_distant_lit_specular(
-          direction,
-          light_color,
-          surface_scale,
-          ks,
-          shininess,
-          unwrap_raw_pointer!(input),
-          unwrap_raw_pointer!(crop))
+        direction,
+        light_color.0,
+        surface_scale,
+        ks,
+        shininess,
+        unwrap_raw_pointer!(input),
+        unwrap_raw_pointer!(crop))
     }
   }
 
@@ -259,7 +270,7 @@ impl ImageFilter {
     ImageFilter <=
     sk_imagefilter_new_point_lit_specular(
       location,
-      light_color,
+      light_color.0,
       surface_scale,
       ks,
       shininess,
@@ -278,14 +289,16 @@ impl ImageFilter {
     ks: f32,
     shininess: f32,
     input: Option<&mut ImageFilter>,
+    crop: Option<&CropRect>,
   ) -> Self {
     wrap_safe_type! {
       ImageFilter <=
       sk_imagefilter_new_spot_lit_specular(
         location, target,
         specular_exponent, cutoff_angle,
-        light_color, surface_scale, ks, shininess,
-        unwrap_raw_pointer!(input))
+        light_color.0, surface_scale, ks, shininess,
+        unwrap_raw_pointer!(input),
+        unwrap_raw_pointer!(crop))
     }
   }
 
@@ -327,9 +340,11 @@ impl ImageFilter {
   }
 
   fn new_merge(filters: &[ImageFilter], crop: Option<&CropRect>) -> Self {
+    let mut raw_filters: Vec<*mut sk_imagefilter_t> =
+      filters.iter().map(|f| f.raw_pointer).collect();
     wrap_safe_type! {
       ImageFilter <=
-      sk_imagefilter_new_merge(filters.as_ptr(), filters.len(), unwrap_raw_pointer!(crop))
+      sk_imagefilter_new_merge(raw_filters.as_mut_ptr(), filters.len() as i32, unwrap_raw_pointer!(crop))
     }
   }
 
@@ -382,13 +397,13 @@ impl ImageFilter {
     }
   }
 
-  fn new_picture_with_croprect(pic: &Picture, rect: &CropRect) -> Self {
+  fn new_picture_with_croprect(pic: &Picture, rect: &Rect) -> Self {
     wrap_safe_type! {
-      ImageFilter <= sk_imagefilter_new_picture_with_croprect(pic.raw_pointer, rect.raw_pointer)
+      ImageFilter <= sk_imagefilter_new_picture_with_croprect(pic.raw_pointer, rect)
     }
   }
 
-  fn new_tile(&src: Rect, dst: &Rect, input: &mut ImageFilter) -> Self {
+  fn new_tile(src: &Rect, dst: &Rect, input: &mut ImageFilter) -> Self {
     wrap_safe_type! {
       ImageFilter <= sk_imagefilter_new_tile(src, dst, input.raw_pointer)
     }
@@ -396,7 +411,7 @@ impl ImageFilter {
 
   fn new_xfermode(
     mode: BlendMode,
-    &background: &mut ImageFilter,
+    background: &mut ImageFilter,
     foreground: Option<&mut ImageFilter>,
     crop: Option<&CropRect>,
   ) -> Self {
@@ -422,7 +437,7 @@ impl ImageFilter {
     wrap_safe_type! {
       ImageFilter <= sk_imagefilter_new_arithmetic(
         k1, k2, k3, k4, enforce_PM_color,
-        background,
+        background.raw_pointer,
         unwrap_raw_pointer!(foreground),
         unwrap_raw_pointer!(crop))
     }
