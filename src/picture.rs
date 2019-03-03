@@ -12,7 +12,7 @@ impl Drop for PictureRecorder {
 }
 
 impl PictureRecorder {
-  fn new() {
+  fn new() -> Self {
     wrap_safe_type! {
       PictureRecorder <= sk_picture_recorder_new()
     }
