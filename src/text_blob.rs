@@ -12,11 +12,11 @@ impl Drop for TextBlob {
 }
 
 impl TextBlob {
-  fn unique_id(&self) -> u32 {
+  pub fn unique_id(&self) -> u32 {
     unsafe { sk_textblob_get_unique_id(self.raw_pointer) }
   }
 
-  fn get_bounds(&self) -> Rect {
+  pub fn get_bounds(&self) -> Rect {
     let mut rect = Rect {
       left: 0.0,
       right: 0.,
@@ -39,19 +39,19 @@ impl Drop for TextBlobBuilder {
 }
 
 impl TextBlobBuilder {
-  fn new() -> Self {
+  pub fn new() -> Self {
     wrap_safe_type! {
       TextBlobBuilder <= sk_textblob_builder_new()
     }
   }
 
-  fn make(&mut self) -> TextBlob {
+  pub fn make(&mut self) -> TextBlob {
     wrap_safe_type! {
       TextBlob <= sk_textblob_builder_make(self.raw_pointer)
     }
   }
 
-  fn alloc_run_text(
+  pub fn alloc_run_text(
     &mut self,
     font: &Paint,
     count: i32,
@@ -83,7 +83,7 @@ impl TextBlobBuilder {
     buffer
   }
 
-  fn alloc_run_text_pos_h(
+  pub fn alloc_run_text_pos_h(
     &mut self,
     font: &Paint,
     count: i32,
@@ -113,7 +113,7 @@ impl TextBlobBuilder {
     buffer
   }
 
-  fn alloc_run_text_pos(
+  pub fn alloc_run_text_pos(
     &mut self,
     font: &Paint,
     count: i32,
@@ -143,28 +143,28 @@ impl TextBlobBuilder {
 }
 
 impl RunBuffer {
-  fn set_glyphs(&self, glyphs: &[u16]) -> &Self {
+  pub fn set_glyphs(&self, glyphs: &[u16]) -> &Self {
     unsafe {
       sk_textblob_builder_runbuffer_set_glyphs(self, glyphs.as_ptr(), glyphs.len() as i32);
     }
     self
   }
 
-  fn set_pos(&self, pos: &[f32]) -> &Self {
+  pub fn set_pos(&self, pos: &[f32]) -> &Self {
     unsafe {
       sk_textblob_builder_runbuffer_set_pos(self, pos.as_ptr(), pos.len() as i32);
     }
     self
   }
 
-  fn set_pos_points(&self, point: &[Point]) -> &Self {
+  pub fn set_pos_points(&self, point: &[Point]) -> &Self {
     unsafe {
       sk_textblob_builder_runbuffer_set_pos_points(self, point.as_ptr(), point.len() as i32);
     };
     self
   }
 
-  fn set_utf8_text(&self, text: &str) -> &Self {
+  pub fn set_utf8_text(&self, text: &str) -> &Self {
     let c_text = std::ffi::CString::new(text).unwrap();
     unsafe {
       sk_textblob_builder_runbuffer_set_utf8_text(self, c_text.as_ptr(), text.len() as i32);
@@ -172,7 +172,7 @@ impl RunBuffer {
     self
   }
 
-  fn set_clusters(&self, clusters: &[u32]) -> &Self {
+  pub fn set_clusters(&self, clusters: &[u32]) -> &Self {
     unsafe {
       sk_textblob_builder_runbuffer_set_clusters(self, clusters.as_ptr(), clusters.len() as i32);
     }
