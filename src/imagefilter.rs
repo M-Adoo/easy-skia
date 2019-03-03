@@ -23,19 +23,19 @@ impl Drop for CropRect {
 }
 
 impl CropRect {
-  fn new() -> Self {
+  pub fn new() -> Self {
     wrap_safe_type! {
       CropRect <= sk_imagefilter_croprect_new()
     }
   }
 
-  fn new_with_rect(rect: &Rect, flags: u32) -> Self {
+  pub fn new_with_rect(rect: &Rect, flags: u32) -> Self {
     wrap_safe_type! {
       CropRect <= sk_imagefilter_croprect_new_with_rect(rect, flags)
     }
   }
 
-  fn get_rect(&self) -> Rect {
+  pub fn get_rect(&self) -> Rect {
     let mut rect = Rect {
       left: 0.,
       right: 0.,
@@ -46,7 +46,7 @@ impl CropRect {
     rect
   }
 
-  fn flags(&self) -> u32 {
+  pub fn flags(&self) -> u32 {
     unsafe { sk_imagefilter_croprect_get_flags(self.raw_pointer) }
   }
 }
@@ -62,7 +62,7 @@ impl Drop for ImageFilter {
 }
 
 impl ImageFilter {
-  fn new_matrix(
+  pub fn new_matrix(
     matrix: &Matrix,
     filter_quality: FilterQuality,
     input: Option<&mut ImageFilter>,
@@ -73,7 +73,7 @@ impl ImageFilter {
     }
   }
 
-  fn new_alpha_threshold(
+  pub fn new_alpha_threshold(
     region: &Region,
     inner_threshold: f32,
     outer_threshold: f32,
@@ -89,7 +89,7 @@ impl ImageFilter {
     }
   }
 
-  fn new_blur(
+  pub fn new_blur(
     sigmaX: f32,
     sigmaY: f32,
     input: Option<&mut ImageFilter>,
@@ -104,7 +104,7 @@ impl ImageFilter {
     }
   }
 
-  fn new_color_filter(
+  pub fn new_color_filter(
     cf: &ColorFilter,
     input: Option<&mut ImageFilter>,
     crop: Option<&CropRect>,
@@ -118,13 +118,13 @@ impl ImageFilter {
     }
   }
 
-  fn new_compose(outer: &mut ImageFilter, inner: &mut ImageFilter) -> Self {
+  pub fn new_compose(outer: &mut ImageFilter, inner: &mut ImageFilter) -> Self {
     wrap_safe_type! {
       ImageFilter <= sk_imagefilter_new_compose(outer.raw_pointer, inner.raw_pointer)
     }
   }
 
-  fn new_displacement_map_effect(
+  pub fn new_displacement_map_effect(
     x_channel_selector: DisplacementMapEffectChannelSelectorType,
     y_channel_selector: DisplacementMapEffectChannelSelectorType,
     scale: f32,
@@ -144,7 +144,7 @@ impl ImageFilter {
     }
   }
 
-  fn new_drop_shadow(
+  pub fn new_drop_shadow(
     dx: f32,
     dy: f32,
     sigmaX: f32,
@@ -168,7 +168,7 @@ impl ImageFilter {
     }
   }
 
-  fn new_distant_lit_diffuse(
+  pub fn new_distant_lit_diffuse(
     direction: &Point3,
     light_color: Color,
     surface_scale: f32,
@@ -188,7 +188,7 @@ impl ImageFilter {
     }
   }
 
-  fn new_point_lit_diffuse(
+  pub fn new_point_lit_diffuse(
     location: &Point3,
     light_color: Color,
     surface_scale: f32,
@@ -208,7 +208,7 @@ impl ImageFilter {
     }
   }
 
-  fn new_spot_lit_diffuse(
+  pub fn new_spot_lit_diffuse(
     location: &Point3,
     target: &Point3,
     specular_exponent: f32,
@@ -234,7 +234,7 @@ impl ImageFilter {
     }
   }
 
-  fn new_distant_lit_specular(
+  pub fn new_distant_lit_specular(
     direction: &Point3,
     light_color: Color,
     surface_scale: f32,
@@ -256,7 +256,7 @@ impl ImageFilter {
     }
   }
 
-  fn new_point_lit_specular(
+  pub fn new_point_lit_specular(
     location: &Point3,
     light_color: Color,
     surface_scale: f32,
@@ -278,7 +278,7 @@ impl ImageFilter {
     }
   }
 
-  fn new_spot_lit_specular(
+  pub fn new_spot_lit_specular(
     location: &Point3,
     target: &Point3,
     specular_exponent: f32,
@@ -301,7 +301,7 @@ impl ImageFilter {
     }
   }
 
-  fn new_magnifier(
+  pub fn new_magnifier(
     src: &Rect,
     inset: f32,
     input: Option<&mut ImageFilter>,
@@ -313,7 +313,7 @@ impl ImageFilter {
     }
   }
 
-  fn new_matrix_convolution(
+  pub fn new_matrix_convolution(
     kernel_size: &ISize,
     kernel: &[f32],
     gain: f32,
@@ -338,7 +338,7 @@ impl ImageFilter {
     }
   }
 
-  fn new_merge(filters: &[ImageFilter], crop: Option<&CropRect>) -> Self {
+  pub fn new_merge(filters: &[ImageFilter], crop: Option<&CropRect>) -> Self {
     let mut raw_filters: Vec<*mut sk_imagefilter_t> =
       filters.iter().map(|f| f.raw_pointer).collect();
     wrap_safe_type! {
@@ -347,7 +347,7 @@ impl ImageFilter {
     }
   }
 
-  fn new_dilate(
+  pub fn new_dilate(
     radius_x: i32,
     radius_y: i32,
     input: Option<&mut ImageFilter>,
@@ -360,7 +360,7 @@ impl ImageFilter {
     }
   }
 
-  fn new_erode(
+  pub fn new_erode(
     radius_x: i32,
     radius_y: i32,
     input: Option<&mut ImageFilter>,
@@ -375,7 +375,7 @@ impl ImageFilter {
     }
   }
 
-  fn new_offset(
+  pub fn new_offset(
     dx: f32,
     dy: f32,
     input: Option<&mut ImageFilter>,
@@ -390,25 +390,25 @@ impl ImageFilter {
     }
   }
 
-  fn new_picture(picture: &Picture) -> Self {
+  pub fn new_picture(picture: &Picture) -> Self {
     wrap_safe_type! {
       ImageFilter <= sk_imagefilter_new_picture(picture.raw_pointer)
     }
   }
 
-  fn new_picture_with_croprect(pic: &Picture, rect: &Rect) -> Self {
+  pub fn new_picture_with_croprect(pic: &Picture, rect: &Rect) -> Self {
     wrap_safe_type! {
       ImageFilter <= sk_imagefilter_new_picture_with_croprect(pic.raw_pointer, rect)
     }
   }
 
-  fn new_tile(src: &Rect, dst: &Rect, input: &mut ImageFilter) -> Self {
+  pub fn new_tile(src: &Rect, dst: &Rect, input: &mut ImageFilter) -> Self {
     wrap_safe_type! {
       ImageFilter <= sk_imagefilter_new_tile(src, dst, input.raw_pointer)
     }
   }
 
-  fn new_xfermode(
+  pub fn new_xfermode(
     mode: BlendMode,
     background: &mut ImageFilter,
     foreground: Option<&mut ImageFilter>,
@@ -423,7 +423,7 @@ impl ImageFilter {
     }
   }
 
-  fn new_arithmetic(
+  pub fn new_arithmetic(
     k1: f32,
     k2: f32,
     k3: f32,
@@ -442,19 +442,24 @@ impl ImageFilter {
     }
   }
 
-  fn new_image_source(image: Image, src: &Rect, dst: &Rect, filter_quality: FilterQuality) -> Self {
+  pub fn new_image_source(
+    image: Image,
+    src: &Rect,
+    dst: &Rect,
+    filter_quality: FilterQuality,
+  ) -> Self {
     wrap_safe_type! {
       ImageFilter <= sk_imagefilter_new_image_source(image.raw_pointer, src, dst, filter_quality)
     }
   }
 
-  fn new_image_source_default(image: &mut Image) -> Self {
+  pub fn new_image_source_default(image: &mut Image) -> Self {
     wrap_safe_type! {
       ImageFilter <= sk_imagefilter_new_image_source_default(image.raw_pointer)
     }
   }
 
-  fn new_paint(paint: &Paint, crop: Option<&CropRect>) -> Self {
+  pub fn new_paint(paint: &Paint, crop: Option<&CropRect>) -> Self {
     wrap_safe_type! {
       ImageFilter <= sk_imagefilter_new_paint(paint.raw_pointer, unwrap_raw_pointer!(crop))
     }

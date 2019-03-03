@@ -14,49 +14,49 @@ impl Drop for ColorFilter {
 }
 
 impl ColorFilter {
-  fn new_mode(color: Color, mode: BlendMode) -> Self {
+  pub fn new_mode(color: Color, mode: BlendMode) -> Self {
     ColorFilter {
       raw_pointer: unsafe { sk_colorfilter_new_mode(color.0, mode) },
     }
   }
 
-  fn new_lighting(mul: Color, add: Color) -> Self {
+  pub fn new_lighting(mul: Color, add: Color) -> Self {
     ColorFilter {
       raw_pointer: unsafe { sk_colorfilter_new_lighting(mul.0, add.0) },
     }
   }
 
-  fn new_compose(&mut self, inner: &mut Self) -> Self {
+  pub fn new_compose(&mut self, inner: &mut Self) -> Self {
     ColorFilter {
       raw_pointer: unsafe { sk_colorfilter_new_compose(self.raw_pointer, inner.raw_pointer) },
     }
   }
 
-  fn new_color_matrix(arr: &[f32; 20]) -> Self {
+  pub fn new_color_matrix(arr: &[f32; 20]) -> Self {
     ColorFilter {
       raw_pointer: unsafe { sk_colorfilter_new_color_matrix(arr.as_ptr()) },
     }
   }
 
-  fn new_luma_color() -> Self {
+  pub fn new_luma_color() -> Self {
     ColorFilter {
       raw_pointer: unsafe { sk_colorfilter_new_luma_color() },
     }
   }
 
-  fn new_high_contrast(config: &Highcontrastconfig) -> Self {
+  pub fn new_high_contrast(config: &Highcontrastconfig) -> Self {
     ColorFilter {
       raw_pointer: unsafe { sk_colorfilter_new_high_contrast(config) },
     }
   }
 
-  fn new_table(table: &[u8; 256]) -> Self {
+  pub fn new_table(table: &[u8; 256]) -> Self {
     ColorFilter {
       raw_pointer: unsafe { sk_colorfilter_new_table(table.as_ptr()) },
     }
   }
 
-  fn new_table_argb(
+  pub fn new_table_argb(
     tableA: &[u8; 256],
     tableR: &[u8; 256],
     tableG: &[u8; 256],

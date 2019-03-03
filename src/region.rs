@@ -26,7 +26,7 @@ impl Clone for Region {
 }
 
 impl Region {
-  fn new() -> Self {
+  pub fn new() -> Self {
     wrap_safe_type! {
       Region <= sk_region_new()
     }
@@ -37,31 +37,31 @@ impl Region {
   // SK_C_API void sk_region_contains(sk_region_t* r, const sk_region_t* region);
   // SK_C_API void sk_region_contains2(sk_region_t* r, int x, int y);
 
-  fn intersects(&mut self, dst: &Region) -> bool {
+  pub fn intersects(&mut self, dst: &Region) -> bool {
     unsafe { sk_region_intersects(dst.raw_pointer, dst.raw_pointer) }
   }
 
-  fn set_path(&mut self, path: &Path, clip: &Region) -> bool {
+  pub fn set_path(&mut self, path: &Path, clip: &Region) -> bool {
     unsafe { sk_region_set_path(self.raw_pointer, path.raw_pointer, clip.raw_pointer) }
   }
 
-  fn set_rect(&mut self, rect: &IRect) -> bool {
+  pub fn set_rect(&mut self, rect: &IRect) -> bool {
     unsafe { sk_region_set_rect(self.raw_pointer, rect) }
   }
 
-  fn set_region(&mut self, region: &Region) -> bool {
+  pub fn set_region(&mut self, region: &Region) -> bool {
     unsafe { sk_region_set_region(self.raw_pointer, region.raw_pointer) }
   }
 
-  fn op(&mut self, left: i32, top: i32, right: i32, bottom: i32, op: RegionOP) -> bool {
+  pub fn op(&mut self, left: i32, top: i32, right: i32, bottom: i32, op: RegionOP) -> bool {
     unsafe { sk_region_op(self.raw_pointer, left, top, right, bottom, op) }
   }
 
-  fn op2(&mut self, src: &Region, op: RegionOP) -> bool {
+  pub fn op2(&mut self, src: &Region, op: RegionOP) -> bool {
     unsafe { sk_region_op2(self.raw_pointer, src.raw_pointer, op) }
   }
 
-  fn get_bounds(&mut self) -> IRect {
+  pub fn get_bounds(&mut self) -> IRect {
     let mut rect = IRect {
       left: 0,
       bottom: 0,

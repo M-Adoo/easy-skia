@@ -1,5 +1,3 @@
-use std::ffi::CString;
-
 use bindings::*;
 use {Image, Matrix, Paint, Path, Picture, Rect};
 
@@ -84,11 +82,10 @@ impl Canvas {
     }
 
     pub fn draw_text(&mut self, text: &str, x: f32, y: f32, paint: &Paint) -> &mut Self {
-        let cstr = CString::new(text).unwrap();
         unsafe {
             sk_canvas_draw_text(
                 self.raw_pointer,
-                cstr.as_ptr(),
+                text.as_ptr() as *const i8,
                 text.len(),
                 x,
                 y,

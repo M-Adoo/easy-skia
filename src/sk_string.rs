@@ -13,24 +13,23 @@ impl Drop for SKString {
 }
 
 impl SKString {
-  fn new() -> Self {
+  pub fn new() -> Self {
     wrap_safe_type! {
       SKString <= sk_string_new_empty()
     }
   }
 
-  fn new_with_cop(text: &str) -> Self {
-    let mut c_str = std::ffi::CString::new(text).unwrap();
+  pub fn new_with_copy(text: &str) -> Self {
     wrap_safe_type! {
-      SKString <= sk_string_new_with_copy(c_str.as_ptr(), text.len())
+      SKString <= sk_string_new_with_copy(text.as_ptr() as *const i8, text.len())
     }
   }
 
-  fn size(&self) -> usize {
+  pub fn size(&self) -> usize {
     unsafe { sk_string_get_size(self.raw_pointer) }
   }
 
-  fn as_str(&self) -> &str {
+  pub fn as_str(&self) -> &str {
     let c_str = unsafe { CStr::from_ptr(sk_string_get_c_str(self.raw_pointer)) };
     c_str.to_str().unwrap()
   }
