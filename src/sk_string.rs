@@ -3,7 +3,7 @@ use std::ffi::CStr;
 use wrap_safe_type;
 
 pub struct SKString {
-  raw_pinter: *mut sk_string_t,
+  pub(crate) raw_pinter: *mut sk_string_t,
 }
 
 impl Drop for SKString {
