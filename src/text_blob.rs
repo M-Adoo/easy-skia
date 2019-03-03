@@ -2,7 +2,7 @@ use bindings::sk_textblob_builder_runbuffer_t as RunBuffer;
 use bindings::*;
 use {wrap_safe_type, Paint, Point, Rect, SKString};
 pub struct TextBlob {
-  raw_pointer: *mut sk_textblob_t,
+  pub(crate) raw_pointer: *mut sk_textblob_t,
 }
 
 impl Drop for TextBlob {
@@ -61,7 +61,7 @@ impl TextBlobBuilder {
     lang: &SKString,
     bounds: &Rect,
   ) -> RunBuffer {
-    let buffer = RunBuffer {
+    let mut buffer = RunBuffer {
       glyphs: std::ptr::null_mut(),
       pos: std::ptr::null_mut(),
       utf8text: std::ptr::null_mut(),
@@ -75,7 +75,7 @@ impl TextBlobBuilder {
         x,
         y,
         text_byte_count,
-        lang.raw_pinter,
+        lang.raw_pointer,
         bounds,
         &mut buffer,
       );
@@ -92,7 +92,7 @@ impl TextBlobBuilder {
     lang: &SKString,
     bounds: &Rect,
   ) -> RunBuffer {
-    let buffer = RunBuffer {
+    let mut buffer = RunBuffer {
       glyphs: std::ptr::null_mut(),
       pos: std::ptr::null_mut(),
       utf8text: std::ptr::null_mut(),
@@ -105,7 +105,7 @@ impl TextBlobBuilder {
         count,
         y,
         text_byte_count,
-        lang.raw_pinter,
+        lang.raw_pointer,
         bounds,
         &mut buffer,
       );
@@ -121,7 +121,7 @@ impl TextBlobBuilder {
     lang: &SKString,
     bounds: &Rect,
   ) -> RunBuffer {
-    let buffer = RunBuffer {
+    let mut buffer = RunBuffer {
       glyphs: std::ptr::null_mut(),
       pos: std::ptr::null_mut(),
       utf8text: std::ptr::null_mut(),
@@ -133,7 +133,7 @@ impl TextBlobBuilder {
         font.raw_pointer,
         count,
         text_byte_count,
-        lang.raw_pinter,
+        lang.raw_pointer,
         bounds,
         &mut buffer,
       );

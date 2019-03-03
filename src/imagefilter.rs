@@ -7,7 +7,6 @@ pub use bindings::sk_matrix_t as Matrix;
 pub use bindings::sk_point3_t as Point3;
 pub use bindings::sk_rect_t as Rect;
 use bindings::*;
-pub use bindings::*;
 use {
   unwrap_raw_pointer, wrap_safe_type, BlendMode, Color, ColorFilter, FilterQuality, Image, Paint,
   Picture, Region,
@@ -130,7 +129,7 @@ impl ImageFilter {
     y_channel_selector: DisplacementMapEffectChannelSelectorType,
     scale: f32,
     displacement: &mut ImageFilter,
-    color: Option<&mut ColorFilter>,
+    color: Option<&mut ImageFilter>,
     crop: Option<&CropRect>,
   ) -> Self {
     wrap_safe_type! {
