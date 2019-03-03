@@ -3,12 +3,12 @@ use std::ffi::CStr;
 use wrap_safe_type;
 
 pub struct SKString {
-  pub(crate) raw_pinter: *mut sk_string_t,
+  pub(crate) raw_pointer: *mut sk_string_t,
 }
 
 impl Drop for SKString {
   fn drop(&mut self) {
-    unsafe { sk_string_destructor(self.raw_pinter) }
+    unsafe { sk_string_destructor(self.raw_pointer) }
   }
 }
 
@@ -27,11 +27,11 @@ impl SKString {
   }
 
   fn size(&self) -> usize {
-    unsafe { sk_string_get_size(self.raw_pinter) }
+    unsafe { sk_string_get_size(self.raw_pointer) }
   }
 
   fn as_str(&self) -> &str {
-    let c_str = unsafe { CStr::from_ptr(sk_string_get_c_str(self.raw_pinter)) };
+    let c_str = unsafe { CStr::from_ptr(sk_string_get_c_str(self.raw_pointer)) };
     c_str.to_str().unwrap()
   }
 }
