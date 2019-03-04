@@ -3,8 +3,8 @@ use std::os::raw::c_void;
 use bindings::*;
 use color::Color;
 use {
-  wrap_safe_type, ColorFilter, ImageFilter, MaskFilter, Path, Point, Rect, Shader, TextBlob,
-  Typeface,
+  wrap_safe_type, ColorFilter, ImageFilter, MaskFilter, Path, PathEffect, Point, Rect, Shader,
+  TextBlob, Typeface,
 };
 
 pub use bindings::sk_blendmode_t as BlendMode;
@@ -12,7 +12,6 @@ pub use bindings::sk_filter_quality_t as FilterQuality;
 pub use bindings::sk_fontmetrics_t as FontMetrics;
 pub use bindings::sk_paint_hinting_t as PaintHinting;
 pub use bindings::sk_paint_style_t as PaintStyle;
-pub use bindings::sk_path_effect_t as PathEffect;
 pub use bindings::sk_stroke_cap_t as StrokeCap;
 pub use bindings::sk_stroke_join_t as StrokeJoin;
 pub use bindings::sk_text_align_t as TextAlign;
@@ -160,12 +159,14 @@ impl Paint {
     (recommend_space, font_metrics)
   }
 
-  pub fn get_path_effect(&mut self) -> &PathEffect {
-    unsafe { &*sk_paint_get_path_effect(self.raw_pointer) }
+  pub fn get_path_effect(&mut self) -> PathEffect {
+    wrap_safe_type! {
+      PathEffect <= sk_paint_get_path_effect(self.raw_pointer)
+    }
   }
 
   pub fn set_path_effect(&mut self, effect: &mut PathEffect) -> &mut Self {
-    unsafe { sk_paint_set_path_effect(self.raw_pointer, effect) };
+    unsafe { sk_paint_set_path_effect(self.raw_pointer, effect.raw_pointer) };
     self
   }
   pub fn is_linear_text(&self) -> bool {

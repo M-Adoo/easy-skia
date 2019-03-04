@@ -87,10 +87,13 @@ fn draw(canvas: &mut Canvas) {
     );
 
     let mut stroke = Paint::new();
+    let mut dpe = PathEffect::create_dash(&[15., 5., 5., 10.], 25.0);
     stroke
         .set_color(Color::from_u32(0xff4285F4))
         .set_antialias(true)
-        .set_stroke_width(2.);
+        .set_style(PaintStyle::STROKE_SK_PAINT_STYLE)
+        .set_stroke_width(2.)
+        .set_path_effect(&mut dpe);
 
     let mut path = Path::new();
     let r: f32 = 115.2;
@@ -100,10 +103,13 @@ fn draw(canvas: &mut Canvas) {
         let a = 2.6927937 * i as f32;
         path.line_to(c + r * a.cos(), c + r * a.sin());
     }
+
     canvas.draw_path(&path, &stroke);
 
     let mut path = Path::new();
-    stroke.set_color(Color::from_u32(0xccff0000));
+    stroke
+        .set_color(Color::from_u32(0xccff0000))
+        .set_style(PaintStyle::FILL_SK_PAINT_STYLE);
     path.move_to(50., 50.)
         .line_to(590., 50.)
         .cubic_to(-490., 50., 1130., 430., 50., 430.)

@@ -24,7 +24,7 @@ clone this repo and run `cargo run  --example hello` get a demo like below:
   - [ ] pdf
   - [ ] svg
   - [ ] xps
-- [ ] ci
+- [x] ci
 - [ ] Animation Player
 
 ### I need help (Contibuting)
