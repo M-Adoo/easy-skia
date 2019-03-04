@@ -41,6 +41,8 @@ mod text_blob;
 pub use self::text_blob::*;
 mod sk_string;
 pub use self::sk_string::*;
+mod path_effect;
+pub use self::path_effect::*;
 
 pub use bindings::gr_pixelconfig_t as GrPixelConfig;
 pub use bindings::sk_alphatype_t as AlphaType;

@@ -1,5 +1,5 @@
 use bindings::*;
-use {unwrap_raw_pointer, wrap_safe_type, Canvas, Matrix, Picture, Rect};
+use {wrap_safe_type, Canvas, Matrix, Picture, Rect};
 
 pub struct Drawable {
   pub(crate) raw_pointer: *mut sk_drawable_t,

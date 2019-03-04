@@ -10,6 +10,7 @@
 #include "skia/include/c/sk_matrix.h"
 #include "skia/include/c/sk_paint.h"
 #include "skia/include/c/sk_path.h"
+#include "skia/include/c/sk_patheffect.h"
 #include "skia/include/c/sk_picture.h"
 #include "skia/include/c/sk_region.h"
 #include "skia/include/c/sk_shader.h"
